@@ -64,19 +64,17 @@ paths:
         "201":
           description: "Successfully create new article"
           schema:
-            type: "array"
-            items:
-              type: "object"
-              properties:
-                id:
-                  type: "integer"
-                  example: 1
-                title:
-                  type: "string"
-                  example: "Lorem Ipsum"
-                body:
-                  type: "string"
-                  example: "Dolor sit amet"
+            type: "object"
+            properties:
+              id:
+                type: "integer"
+                example: 1
+              title:
+                type: "string"
+                example: "Lorem Ipsum"
+              body:
+                type: "string"
+                example: "Dolor sit amet"
         "400":
           description: "Failed to create new article"
           schema:
