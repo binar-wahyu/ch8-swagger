@@ -1,0 +1,117 @@
+openapi: 3.0.1
+
+info:
+  description: Ini description aplikasinya
+  title: Nama app
+  version: 1.0.0
+
+servers:
+- url: /v1
+  
+tags:
+- name: Article
+  description: Article resources
+  
+paths:
+  /articles:
+    get:
+      tags:
+      - Article
+      summary: List all available articles
+      description: Description for list article
+      operationId: getArticles
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Article'
+    post:
+      tags:
+      - Article
+      summary: Add new article
+      description: Create new
+      operationId: addArticle
+      security:
+      - Token: []
+      requestBody:
+        description: Article object
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  example: Lorem Ipsum
+                body:
+                  type: string
+                  example: Dolor sit amet
+      responses:
+        201:
+          description: Successfully create new article
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Article'
+        400:
+          description: Failed to create new article
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message: 
+                    type: string
+                    example: Failed to create new article
+                
+  /articles/{articleId}:
+    get:
+      tags:
+      - Article
+      summary: Find article by ID
+      description: Returns a single Article
+      operationId: getArticleById
+      parameters:
+      - in: path
+        name: articleId
+        description: ID of article to return
+        required: true
+        schema:
+          type: integer
+      responses:
+        200:
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Article'
+        400:
+          description: Invalid ID supplied
+        404:
+          description: Article not found
+          
+components:
+  schemas:
+    Article:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        title:
+          type: string
+          example: Lorem Ipsum
+        body:
+          type: string
+          example: Dolor sit amet
+  
+  securitySchemes:
+    Token:
+      type: apiKey
+      in: header
+      name: Authorization
