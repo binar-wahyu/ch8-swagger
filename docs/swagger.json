@@ -5,6 +5,7 @@
     "title": "Nama app",
     "version": "1.0.0"
   },
+  "basePath": "/v1",
   "tags": [
     {
       "name": "Article",
@@ -19,6 +20,7 @@
         ],
         "summary": "List all available articles",
         "description": "Description for list article",
+        "operationId": "getArticles",
         "produces": [
           "application/json"
         ],
@@ -28,21 +30,7 @@
             "schema": {
               "type": "array",
               "items": {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "integer",
-                    "example": 1
-                  },
-                  "title": {
-                    "type": "string",
-                    "example": "Lorem Ipsum"
-                  },
-                  "body": {
-                    "type": "string",
-                    "example": "Dolor sit amet"
-                  }
-                }
+                "$ref": "#/definitions/Article"
               }
             }
           }
@@ -54,6 +42,7 @@
         ],
         "summary": "Add new article",
         "description": "Create new",
+        "operationId": "addArticle",
         "security": [
           {
             "Token": []
@@ -90,21 +79,7 @@
           "201": {
             "description": "Successfully create new article",
             "schema": {
-              "type": "object",
-              "properties": {
-                "id": {
-                  "type": "integer",
-                  "example": 1
-                },
-                "title": {
-                  "type": "string",
-                  "example": "Lorem Ipsum"
-                },
-                "body": {
-                  "type": "string",
-                  "example": "Dolor sit amet"
-                }
-              }
+              "$ref": "#/definitions/Article"
             }
           },
           "400": {
@@ -129,6 +104,7 @@
         ],
         "summary": "Find article by ID",
         "description": "Returns a single Article",
+        "operationId": "getArticleById",
         "parameters": [
           {
             "in": "path",
@@ -145,21 +121,7 @@
           "200": {
             "description": "Successful operation",
             "schema": {
-              "type": "object",
-              "properties": {
-                "id": {
-                  "type": "integer",
-                  "example": 1
-                },
-                "title": {
-                  "type": "string",
-                  "example": "Lorem Ipsum"
-                },
-                "body": {
-                  "type": "string",
-                  "example": "Dolor sit amet"
-                }
-              }
+              "$ref": "#/definitions/Article"
             }
           },
           "400": {
@@ -177,6 +139,25 @@
       "type": "apiKey",
       "in": "header",
       "name": "Authorization"
+    }
+  },
+  "definitions": {
+    "Article": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "example": 1
+        },
+        "title": {
+          "type": "string",
+          "example": "Lorem Ipsum"
+        },
+        "body": {
+          "type": "string",
+          "example": "Dolor sit amet"
+        }
+      }
     }
   }
 }
